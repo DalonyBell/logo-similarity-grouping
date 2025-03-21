@@ -1,0 +1,191 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 33% 98%;
+    --foreground: 220 10% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 10% 15%;
+
+    --primary: 250 65% 60%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 252 100% 95%;
+    --secondary-foreground: 250 65% 40%;
+
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 340 82% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 60%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 20% 8%;
+    --foreground: 220 10% 90%;
+
+    --card: 220 15% 12%;
+    --card-foreground: 220 10% 90%;
+
+    --popover: 220 15% 12%;
+    --popover-foreground: 220 10% 90%;
+
+    --primary: 250 65% 60%;
+    --primary-foreground: 220 10% 98%;
+
+    --secondary: 250 50% 20%;
+    --secondary-foreground: 220 10% 90%;
+
+    --muted: 220 10% 16%;
+    --muted-foreground: 220 10% 70%;
+
+    --accent: 340 82% 60%;
+    --accent-foreground: 220 10% 98%;
+
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 220 10% 98%;
+
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 224 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    @apply antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(
+        circle at top left,
+        rgba(var(--primary-rgb, 122, 100, 235), 0.06) 0%,
+        rgba(var(--primary-rgb, 122, 100, 235), 0) 50%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(var(--accent-rgb, 235, 53, 112), 0.06) 0%,
+        rgba(var(--accent-rgb, 235, 53, 112), 0) 50%
+      );
+    background-size: 100% 100%;
+    background-attachment: fixed;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Improved focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary/50 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 rounded-full transition-colors;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/50;
+  }
+}
+
+@layer components {
+  /* Card with glass effect */
+  .glass-card {
+    @apply bg-white/70 dark:bg-black/40 backdrop-blur-md rounded-2xl 
+    border border-white/20 dark:border-white/10 shadow-glass;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+  }
+  
+  /* Button base styles */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background 
+    transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+    focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  /* Input base styles */
+  .input-base {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm 
+    ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium 
+    placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+    focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  /* Custom loader animation */
+  .loader {
+    @apply relative w-6 h-6;
+  }
+  
+  .loader:before,
+  .loader:after {
+    content: "";
+    @apply absolute left-0 top-0 w-full h-full rounded-full;
+    animation: loader-animation 1.8s ease-in-out infinite;
+  }
+  
+  .loader:before {
+    @apply bg-primary opacity-70;
+  }
+  
+  .loader:after {
+    @apply bg-accent opacity-70;
+    animation-delay: -0.9s;
+  }
+  
+  @keyframes loader-animation {
+    0%, 100% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+}
